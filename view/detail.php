@@ -24,7 +24,9 @@ include 'header.php';
         </div>
         <div id="my_profile">
 		<table>
-<?php 
+<?php
+$dish = $_POST['dish'];
+ 
 $columns = array(
   'gerechtnaam' => 'gerechtnaam', 
   'bereidingstijd' => 'bereidingstijd',
@@ -38,17 +40,15 @@ foreach ($columns as $name => $col_name) {
 }
 echo "</tr>";
 
-// Output rows
-echo '<form id="todetail" method="post" action="../../toetjes/view/detail.php">';
+// Output rows 
 while($row = mysqli_fetch_array($result)) {
   echo "<tr>";
   foreach ($columns as $name => $col_name) {
-    echo "<td style=\"text-align:center;\"><input name='dish' type='submit' value='". $row[$col_name] . "'></td>";
+    echo "<td style=\"text-align:center;\">". $row[$col_name] . "</td>";
   }
   echo "</tr>";
 }
 ?>
-</form>
 	</table>
         </div>
     </div>
