@@ -1,5 +1,5 @@
 <?php
-
+	include '..\actions\database.php';
 ?>
 <!DOCTYPE html>
 <html>

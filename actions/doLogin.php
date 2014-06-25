@@ -1,4 +1,7 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 	include 'database.php';
 	$username = $_POST['username'];
 	$password = $_POST['password'];
@@ -10,21 +13,24 @@
 	
 	if(!empty($_POST['username']) && !empty($_POST['password'])) {
 		
-				$sqli="SELECT * FROM 'users' WHERE username='$username'";
-					$result=mysql_query($dbconnect,$sqli,);
-						var_dump($result);
-			/*if($userdbpass == md5($password)){
+				$query="SELECT ID, username, password FROM user WHERE username='joost'";
+				$result=mysqli_query($dbconnect,$query);
+				$userdata = mysqli_fetch_array ($result, MYSQLI_ASSOC);
+				$dbpassword = $userdata['password'];
 
-				$_SESSION['userId'] = $userid;
+			if($dbpassword == md5($password)){
+
 				//doorsturen naar main page
+				$_SESSION['userid']=$userdata['ID'];
 				header('Location:../../toetjes/view/main.php');
 			}
+			
 			else {
 				// terugsturen naar inloggen voor verkeerd wachtwoord
 				header('Location: ../../toetjes/index.php');
 				$_SESSION["error"] = "<p class='error1'>Gegevens zijn onjuist.</p>";
 			}
-			*/
+			
 	}
 	
 	else

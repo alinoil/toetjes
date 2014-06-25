@@ -5,12 +5,12 @@ if(isset($_SESSION['error'])){
   unset($_SESSION['error']);
 }
 
-if(isset($_SESSION['userId'])){
-  unset($_SESSION['userId']);
+if(isset($_SESSION['userid'])){
+  unset($_SESSION['userid']);
 }
 
 	
 session_destroy();
 
-header('Location: ../../PW7/login/');
+header('Location: ../../toetjes/index.php');
 ?>
