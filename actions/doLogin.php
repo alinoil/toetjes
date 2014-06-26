@@ -13,7 +13,7 @@ if (session_status() == PHP_SESSION_NONE) {
 	
 	if(!empty($_POST['username']) && !empty($_POST['password'])) {
 		
-				$query="SELECT ID, username, password FROM user WHERE username='joost'";
+				$query="SELECT ID, username, password FROM user WHERE username='$username'";
 				$result=mysqli_query($dbconnect,$query);
 				$userdata = mysqli_fetch_array ($result, MYSQLI_ASSOC);
 				$dbpassword = $userdata['password'];

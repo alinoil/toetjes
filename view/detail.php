@@ -18,36 +18,21 @@ include 'header.php';
 
     <div class="innerContent">
         <div id="option_menu">
-            <div class="option_item"><i class="fa fa-pencil"></i> frontpage</div>
-            <div class="option_item"><a href="/toetjes/logout/"><i class="fa fa-power-off"></i> Uitloggen</a></div>
+            <div class="option_item"><a href="/toets/toetjes/view/main.php"><i class="fa fa-pencil"></i> frontpage</a></div>
+            <div class="option_item"><a href="/toets/toetjes/actions/logout.php"><i class="fa fa-power-off"></i> Uitloggen</a></div>
 
         </div>
         <div id="my_profile">
 		<table>
 <?php
 $dish = $_POST['dish'];
- 
-$columns = array(
-  'gerechtnaam' => 'gerechtnaam', 
-  'bereidingstijd' => 'bereidingstijd',
-);
-$query="SELECT * FROM gerecht";
-$result= mysqli_query($dbconnect,$query);
-// Output table header
-echo "<table border=\"1px solid black\" width=\"80%\"><tr>";
-foreach ($columns as $name => $col_name) {
-  echo "<th>$name</th>";
-}
-echo "</tr>";
 
-// Output rows 
-while($row = mysqli_fetch_array($result)) {
-  echo "<tr>";
-  foreach ($columns as $name => $col_name) {
-    echo "<td style=\"text-align:center;\">". $row[$col_name] . "</td>";
-  }
-  echo "</tr>";
-}
+$query="SELECT gerechtnaam,bereidingstijd, bereidingswijze FROM gerecht WHERE gerechtnaam='$dish'";
+				$result= mysqli_query($dbconnect,$query) or die("Error: ".mysqli_error($dbconnect));
+				$dishdata = mysqli_fetch_array($result, MYSQLI_ASSOC);
+				$dishname = $dishdata['gerechtnaam'];
+				$dishtime = $dishdata['bereidingstijd'];
+				$dishprocces = $dishdata['bereidingswijze'];
 ?>
 	</table>
         </div>

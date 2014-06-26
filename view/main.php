@@ -11,15 +11,20 @@ include 'header.php';
         <h1 id="header_h1">Welkom</h1>
     </div>
     <div class="sideBar">
-        <div id="header_inbox"><i class="fa fa-inbox"></i></div>
-        
-        
+		<form id="search" method="post" action="../../toetjes/actions/search.php">
+        <div id="header_inbox"><i class="fa fa-inbox">Zoeken</i></div>
+        <div>Gerechtnaam:<input type="text" name="dishname"></div>
+		<div>productnaam:<input type="text" name="dishproduct"></div>
+		<div>max. bereidingstijd: <input type="number" name="dishtime"></div>
+		<div>max energy pp: <input type="number" name="dishenergy"></div>
+		<div><input type="submit" name="search" value="zoeken"></div>
+        </form>
     </div>
 
     <div class="innerContent">
         <div id="option_menu">
             <div class="option_item"><i class="fa fa-pencil"></i> frontpage</div>
-            <div class="option_item"><a href="/toetjes/logout/"><i class="fa fa-power-off"></i> Uitloggen</a></div>
+            <div class="option_item"><a href="/toetjes/actions/logout.php"><i class="fa fa-power-off"></i> Uitloggen</a></div>
 
         </div>
         <div id="my_profile">
