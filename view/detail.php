@@ -23,19 +23,26 @@ include 'header.php';
 
         </div>
         <div id="my_profile">
-		<table>
-<?php
-$dish = $_POST['dish'];
+	<?php
+				$dish = $_POST['dish'];
 
-$query="SELECT gerechtnaam,bereidingstijd, bereidingswijze FROM gerecht WHERE gerechtnaam='$dish'";
+				$query="SELECT gerechtnaam,bereidingstijd, bereidingswijze, energiePP FROM gerecht WHERE gerechtnaam='$dish'";
 				$result= mysqli_query($dbconnect,$query) or die("Error: ".mysqli_error($dbconnect));
 				$dishdata = mysqli_fetch_array($result, MYSQLI_ASSOC);
 				$dishname = $dishdata['gerechtnaam'];
 				$dishtime = $dishdata['bereidingstijd'];
 				$dishprocces = $dishdata['bereidingswijze'];
-?>
-	</table>
-        </div>
+				$dishenergy = $dishdata['energiePP'];
+	?>
+		<div><h2><?php echo $dishname; ?> </h2></div>
+		<div>bereidingstijd: <?php echo $dishtime; ?> </div>
+		<div>energie per persoon: <?php echo $dishenergy ?> </div>
+		<div>bereidingswijze: <br> <?php echo $dishprocces ?> </div>
+		<form id="persons" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+		<div>aantal personen: <input type="number" name="persons"><input type="hidden" value="<?php echo $dish; ?>"> </div>
+		<input type="submit" value="toon">
+        </form>
+		</div>
     </div>
     <div class="footer">
         <div id="footer_text"><i class="fa fa-info-circle"></i> Versie 1.0 </div>

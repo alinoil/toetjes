@@ -19,6 +19,8 @@ include 'header.php';
 		<div>max energy pp: <input type="number" name="dishenergy"></div>
 		<div><input type="submit" name="search" value="zoeken"></div>
         </form>
+		<div><?php if(isset($_SESSION['searcherror'])) {
+						echo $_SESSION['searcherror'];} $_SESSION['searcherror']= null; ?> </div>
     </div>
 
     <div class="innerContent">
@@ -28,16 +30,22 @@ include 'header.php';
 
         </div>
         <div id="my_profile">
-		<table>
+		<table border="1px">
 <?php 
 $columns = array(
   'gerechtnaam' => 'gerechtnaam', 
   'bereidingstijd' => 'bereidingstijd',
 );
+if(isset($_SESSION['searchq'])) {
+	$query = $_SESSION['searchq'];
+	unset($_SESSION['searchq'])
+;}
+else {
 $query="SELECT * FROM gerecht";
-$result= mysqli_query($dbconnect,$query);
+}
+$result= mysqli_query($dbconnect,$query) or die("Error: ".mysqli_error($dbconnect));
 // Output table header
-echo "<table border=\"1px solid black\" width=\"80%\"><tr>";
+echo "<tr>";
 foreach ($columns as $name => $col_name) {
   echo "<th>$name</th>";
 }
