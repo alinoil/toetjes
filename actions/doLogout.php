@@ -12,5 +12,5 @@ if(isset($_SESSION['userid'])){
 	
 session_destroy();
 
-header('Location: ../../toetjes/index.php');
+header('Location: /toets/toetjes/index.php');
 ?>

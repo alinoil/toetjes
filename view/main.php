@@ -26,40 +26,36 @@ include 'header.php';
     <div class="innerContent">
         <div id="option_menu">
             <div class="option_item"><i class="fa fa-pencil"></i> frontpage</div>
-            <div class="option_item"><a href="/toetjes/actions/logout.php"><i class="fa fa-power-off"></i> Uitloggen</a></div>
+            <div class="option_item"><a href="/toets/toetjes/actions/logout.php"><i class="fa fa-power-off"></i> Uitloggen</a></div>
 
         </div>
         <div id="my_profile">
-		<table border="1px">
+		<table id="maintbl">
+		<form id="todetail" method="post" action="../../toetjes/view/detail.php">
+		
 <?php 
-$columns = array(
-  'gerechtnaam' => 'gerechtnaam', 
-  'bereidingstijd' => 'bereidingstijd',
-);
 if(isset($_SESSION['searchq'])) {
 	$query = $_SESSION['searchq'];
 	unset($_SESSION['searchq'])
 ;}
 else {
-$query="SELECT * FROM gerecht";
+$query="SELECT gerechtnaam, bereidingstijd FROM gerecht";
 }
 $result= mysqli_query($dbconnect,$query) or die("Error: ".mysqli_error($dbconnect));
 // Output table header
-echo "<tr>";
-foreach ($columns as $name => $col_name) {
-  echo "<th>$name</th>";
-}
-echo "</tr>";
+	echo "<thead>
+    <tr>
+        <th>gerechtnaam:</th>
+        <th>bereidingstijd:</th>
+    </tr>
+	</thead>";
+				while($row = mysqli_fetch_array($result)) {
+				echo "<tr>";
+				  echo "<td><button id='subdish' name='dish' type='submit' value='".$row['gerechtnaam']."'>". $row['gerechtnaam'] . "</td> <td> " .($row['bereidingstijd']." minuten</button></td>");
+				  echo "</tr>";
+				  
+				}
 
-// Output rows
-echo '<form id="todetail" method="post" action="../../toetjes/view/detail.php">';
-while($row = mysqli_fetch_array($result)) {
-  echo "<tr>";
-  foreach ($columns as $name => $col_name) {
-    echo "<td style=\"text-align:center;\"><input name='dish' type='submit' value='". $row[$col_name] . "'></td>";
-  }
-  echo "</tr>";
-}
 ?>
 </form>
 	</table>

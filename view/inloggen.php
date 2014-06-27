@@ -15,7 +15,7 @@ include 'header.php';
 	<div class="innerContent">
 	<div id="option_menu" >
 		
-			<div class="option_item"><a href="../../toetjes/registreren/"><i class="fa fa-power-off"></i> Registreren</a></div>
+			<div class="option_item"><a href="/toets/toetjes/view/registratie.php"><i class="fa fa-power-off"></i> Registreren</a></div>
 	</div>
 		<form style="margin-top:100px;" id="inlogForm" method="post" action="../../toetjes/actions/dologin.php" >
 		<table>

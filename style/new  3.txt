@@ -1,0 +1,19 @@
+echo "<tr>";
+foreach ($columns as $name => $col_name) {
+  echo "<th>$name</th>";
+}
+echo "</tr>";
+
+// Output rows
+echo '<form id="todetail" method="post" action="../../toetjes/view/detail.php">';
+				$result= mysqli_query($dbconnect,$query) or die("Error: ".mysqli_error($dbconnect));
+				while($row = mysqli_fetch_array($result)) {
+				  echo $row['gerechtnaam'] . " " .($row['bereidingstijd']*$persons);
+				  echo "<br>";
+				}
+}
+  echo "<tr>";
+  foreach ($columns as $name => $col_name) {
+    echo "<td><input id='subdish' name='dish' type='submit' value='". $row[$col_name] . "'></td>";
+  }
+  echo "</tr>";

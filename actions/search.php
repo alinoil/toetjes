@@ -19,7 +19,12 @@ if(!empty($_POST['dishname']) || !empty($_POST['dishproduct']) || !empty($_POST[
 	if(!empty($_POST['dishproduct'])) {
 		$dishproduct= $_POST['dishproduct'];
 	}
-	$query = "SELECT * FROM gerecht LEFT OUTER JOIN ingredient AS ing ON ing.gerechtnaam = gerecht.gerechtnaam WHERE gerechtnaam LIKE '%$dishname%' AND bereidingstijd<= $dishtime AND energiePP<=$dishenergy";
+	
+	$query = "SELECT DISTINCT ger.gerechtnaam, ger.bereidingstijd, ger.energiePP
+				FROM gerecht AS ger
+				LEFT OUTER JOIN ingredient ON ger.gerechtnaam = ingredient.gerechtnaam
+				WHERE ger.gerechtnaam LIKE '%$dishname%' AND ger.bereidingstijd<= $dishtime AND ger.energiePP<=$dishenergy AND ingredient.productnaam LIKE '%$dishproduct%' ";
+				
 	$_SESSION['searchq'] = $query;
 	header('Location:../../toetjes/view/main.php');
 }

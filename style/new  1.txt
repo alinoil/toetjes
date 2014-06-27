@@ -5,6 +5,7 @@ if (session_status() == PHP_SESSION_NONE) {
 if(isset($_SESSION['userid'])) {
 $userid = $_SESSION['userid'];
 include 'header.php';
+
 ?>
 <div class="content">
     <div class="header">
@@ -26,19 +27,19 @@ include 'header.php';
 
     <div class="innerContent">
         <div id="option_menu">
-            <div class="option_item"><a href="/toets/toetjes/view/main.php"><i class="fa fa-pencil"></i> terug</a></div>
+            <div class="option_item"><a href="/toets/toetjes/view/main.php"><i class="fa fa-pencil"></i> frontpage</a></div>
             <div class="option_item"><a href="/toets/toetjes/actions/logout.php"><i class="fa fa-power-off"></i> Uitloggen</a></div>
 
         </div>
         <div id="my_profile">
-	<?php			
+	<?php		
 					$persons = 1;
-					if(!empty($_POST['dishname'])) {
-						$dish = $_POST['dishname'];
+					if(!empty($_GET['dishname'])) {
+						$dish = $_GET['dishname'];
 						$persons = $_POST['persons'];
 					}
 					else {
-				$dish = $_POST['dish'];
+				$dish = $_GET['dishname'];
 					}
 
 				$query="SELECT gerechtnaam,bereidingstijd, bereidingswijze, energiePP FROM gerecht WHERE gerechtnaam='$dish'";
@@ -61,13 +62,24 @@ include 'header.php';
         </form>
 		<div> <?php
 			
-			$query2 = "SELECT productnaam, hoeveelheidPP
-				FROM ingredient
+			$query2 = "SELECT ing.productnaam, ing.hoeveelheidPP
+				FROM ingredient as ing
+				LEFT OUTER JOIN product ON ing.productnaam = product.productnaam
 				WHERE gerechtnaam ='$dish'";
 				$result2= mysqli_query($dbconnect,$query2) or die("Error: ".mysqli_error($dbconnect));
 				while($row = mysqli_fetch_array($result2)) {
-				  echo $row['productnaam'] . " " .($row['hoeveelheidPP']*$persons);
-				  echo "<br>";
+				//--------------------------------------------------------------------------
+					   $eenheden = "SELECT pr.productnaam, pr.eenheidnaam, pr.energiePE 
+                        FROM product AS pr
+                        LEFT OUTER JOIN eenheid ON pr.eenheidnaam = eenheid.eenheidnaam
+                        WHERE productnaam = '".$row['productnaam']."'";
+                        
+                        $eenhedenrow = mysqli_query($dbconnect, $eenheden);
+                         
+                        while ($eenheden = mysqli_fetch_array($eenhedenrow, MYSQLI_ASSOC)){
+                                echo $row['hoeveelheidPP']*$persons." ".$eenheden['eenheidnaam']." ".$eenheden['productnaam']."<br/>";
+				  
+						}
 				}
 			?></div>
 		</div>

@@ -26,7 +26,7 @@ include 'header.php';
 
     <div class="innerContent">
         <div id="option_menu">
-            <div class="option_item"><a href="/toets/toetjes/view/main.php"><i class="fa fa-pencil"></i> terug</a></div>
+            <div class="option_item"><a href="/toets/toetjes/view/main.php"><i class="fa fa-pencil"></i> frontpage</a></div>
             <div class="option_item"><a href="/toets/toetjes/actions/logout.php"><i class="fa fa-power-off"></i> Uitloggen</a></div>
 
         </div>

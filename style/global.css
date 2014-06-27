@@ -154,6 +154,7 @@ a {
 	position: absolute;
 	margin-top: 60px;
 	margin-left: 10px;
+	max-width: 750px;
 
 }
 
@@ -180,4 +181,17 @@ a {
 .error1 {
 	color: red;
 	font-size: 12px;
+}
+
+#subdish
+{
+	color: blue;
+	background-color: #D7DFFF;
+	font-size: 15px;
+	height: 27px;
+}
+
+#maintbl {
+	background-color: lightblue;
+	border: 1px;
 }
